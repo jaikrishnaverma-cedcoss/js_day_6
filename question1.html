@@ -73,10 +73,12 @@
         height: 40px;
     }
 </style>
+
 <body>
     <div class="container">
 
-        <div class="bar"><select name="" class="adv" id="select">
+        <div class="bar">
+            <select name="" class="adv" id="select">
                 <option value="-1">-Select Field-</option>
                 <option value="Company">Company</option>
                 <option value="Model">Model</option>
@@ -86,6 +88,22 @@
             <div style="display: flex;
             align-items: center;height: 100%;"><input class="adv" type="text" id="input">
                 <button onclick="searching()" class="adv">Search</button>
+            </div>
+            <div style="display: flex;align-items: center;width: 25%;
+            justify-content: space-evenly;">
+                <select name="" onchange="sorting()" class="adv" id="sort">
+                    <option value="-1">-Sort-</option>
+                    <option value="asc">Acsending</option>
+                    <option value="dec">Descending</option>
+                </select>
+                <select name="" onchange="sorting()" class="adv" id="sort_by">
+                    <option value="-1">-Sort By-</option>
+                    <option value="Company">Company</option>
+                    <option value="Model">Model</option>
+                    <option value="Memory(GB)">Memory</option>
+                    <option value="Price(Rs)">Price</option>
+                </select>
+
             </div>
         </div>
         <table>
@@ -127,32 +145,57 @@
             var txtvalue = document.getElementById("input").value;
             var sltvalue = document.getElementById("select").value;
 
-            if(sltvalue=="-1")
-            {
+            if (sltvalue == "-1") {
                 alert("Please select a column to search.");
 
                 document.getElementById('tbody').innerHTML = "";
                 defaulted();
             }
-            else{
+            else {
 
                 document.getElementById('tbody').innerHTML = "";
                 for (i = 0; i < arr.length; i++) {
-                if (arr[i][sltvalue] == txtvalue) {
+                    if (arr[i][sltvalue] == txtvalue) {
 
-                    addRow(arr[i]);
+                        addRow(arr[i]);
 
+                    }
                 }
-            }
-            if( document.getElementById('tbody').innerHTML == "")
-            {
-                var txt='<tr><td colspan="4" style="text-align:center;color:red;font-weight:600"> No Record Found </td></tr>';
-                document.getElementById('tbody').innerHTML =txt;
-            }
+                if (document.getElementById('tbody').innerHTML == "") {
+                    var txt = '<tr><td colspan="4" style="text-align:center;color:red;font-weight:600"> No Record Found </td></tr>';
+                    document.getElementById('tbody').innerHTML = txt;
+                }
 
             }
 
+
+        }
+        function sorting() {
+            var sort = document.getElementById('sort').value;
+            var sort_by = document.getElementById('sort_by').value;
+            if (sort_by == "-1")
+                sort_by = "Company";
+            if (sort == "asc") {
+                if (sort_by == "Company"||sort_by == "Model")
+                    arr = arr.sort(function (a, b) { let x = a[sort_by].toLowerCase(); let y = b[sort_by].toLowerCase(); if (x < y) { return -1; } if (x > y) { return 1; } return 0; });
          
+                if(sort_by=="Memory(GB)"||sort_by=="Price(Rs)")
+                arr=arr.sort(function(a, b){return a[sort_by] - b[sort_by]});
+
+            }
+            if (sort == "dec") {
+                if (sort_by == "Company"||sort_by == "Model")
+                    arr = arr.sort(function (a, b) { let x = a[sort_by].toLowerCase(); let y = b[sort_by].toLowerCase(); if (x < y) { return 1; } if (x > y) { return -1; } return 0; });
+         
+                if(sort_by=="Memory(GB)"||sort_by=="Price(Rs)")
+                arr=arr.sort(function(a, b){return  b[sort_by]-a[sort_by]});
+            }
+
+            document.getElementById('tbody').innerHTML = "";
+            for (var i = 0; i <= arr.length; i++) {
+                addRow(arr[i]);
+            }
+
         }
     </script>
 </body>
