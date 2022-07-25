@@ -100,14 +100,9 @@ function add() {
     var memory = document.getElementById('memory').value;
 
     var price = document.getElementById('price').value;
-    // console.log(company+" "+ price);
     var data = { "Company": company, "Model": model, "Memory(GB)": memory, "Price(Rs)": price };
-    // arr.push();
     arr.splice(2, 0, data);
     document.getElementById('tbody').innerHTML = "";
-    // for (var i = 0; i <= arr.length; i++) {
-    //     addRow(arr[i]);
-    // }
     defaulted();
     document.getElementById('company').value = ""; document.getElementById('model').value = ""; document.getElementById('memory').value = ""; document.getElementById('price').value = "";
 
@@ -119,9 +114,40 @@ var buyerList = [];
             var prod = document.getElementById("product");
             var pid = prod.options[prod.selectedIndex].id;
             prod = prod.value;
+            var tmp2;
             var quant = document.getElementById("quantity").value;
-            var tmp2 = { "Description": prod, "Quantity": quant, "Amount": (arr[pid]['Price(Rs)'] * quant) };
-            buyerList.push(tmp2);
+            // console.log("");
+            if(buyerList.length>0)
+            {
+                var flag=0;
+            for(var x=0;x<buyerList.length;x++)
+            {   
+                console.log(buyerList[x].Description==prod);
+                if(buyerList[x].Description==prod)
+                {
+                    
+                    buyerList[x].Quantity=parseInt(buyerList[x].Quantity);
+                    quant=parseInt(quant);
+                    buyerList[x].Quantity+=quant;
+                    buyerList[x].Amount=arr[pid]['Price(Rs)']*buyerList[x].Quantity;
+                    flag++;
+                }
+                // else if(x==buyerList.length-1 && flag==0)
+                //  tmp2 = { Description: prod, Quantity: quant, Amount: (arr[pid]['Price(Rs)'] * quant) };
+                //   buyerList.push(tmp2);
+             }
+             if(flag==0)
+             {tmp2 = { Description: prod, Quantity: quant, Amount: (arr[pid]['Price(Rs)'] * quant) };
+             buyerList.push(tmp2);
+            }
+             
+               
+        }else{
+             tmp2 = { Description: prod, Quantity: quant, Amount: (arr[pid]['Price(Rs)'] * quant) };
+             buyerList.push(tmp2);
+        }
+            
+           
             // alert("item added in list.");
 
         }
@@ -136,12 +162,10 @@ var buyerList = [];
             document.getElementById('tthead').innerHTML = head;
             for (var i = 0; i < buyerList.length; i++) {
                 addRow(buyerList[i], "ttbody");
-                total += buyerList[i].Amount;
-                // console.log(total);
-
+                total += parseInt(buyerList[i].Amount);
+                // console.log(buyerList[i].Amount);
+                // console.log(buyerList);
             }
-
-            total= "<tr><td colspan='2'>Total</td><td>" + total + "</td></tr>";
-            // console.log(total);
-            document.getElementById('ttbody').innerHTML +=total;
+            var totalx= "<tr><td colspan='2'>Total</td><td>" + total + "</td></tr>";
+            document.getElementById('ttbody').innerHTML +=totalx;
         }
