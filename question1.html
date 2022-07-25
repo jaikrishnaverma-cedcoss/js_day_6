@@ -41,20 +41,27 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 0px 20px;
+
+        width: 100%;
+
     }
 
     .container {
         display: flex;
         justify-content: center;
-        align-items: center;
-        flex-direction: column;
-  
+
+        justify-content: flex-start;
+        /* flex-direction: column; */
+
+    }
+
+    .innovice {
+        padding: 0% 1%;
     }
 
     table,
     .bar {
-        width: 55%;
+        width: 100%;
 
     }
 
@@ -72,184 +79,110 @@
 
         height: 40px;
     }
-    tbody tr:nth-child(odd)
-    {
+
+    tbody tr:nth-child(odd) {
         background-color: rgb(191, 221, 209);
     }
-    .form
-    {
+
+    .form {
         display: flex;
-    flex-direction: column;
-    background-color: rgb(0, 99, 66);
-    padding: 20px;
-    border-radius: 0px 10px 0px 10px;
-    margin: 10px;
+        flex-direction: column;
+        background-color: rgb(0, 99, 66);
+        padding: 20px;
+        border-radius: 0px 10px 0px 10px;
+        margin: 10px;
     }
-    .form input,.form button{
-        border:2px solid rgb(18, 62, 47);
+
+    .form input,
+    .form button {
+        border: 2px solid rgb(18, 62, 47);
         height: 25px;
         padding: 2px;
     }
-    label{
+
+    label {
         font-size: 18px;
         font-weight: 800;
-        color:white
+        color: white
     }
 </style>
 
 <body>
     <div class="container">
-   <div class="form">
-    <label for="company">Company</label>
-    <input type="text" placeholder="Company Name" id="company" class="company">
-    <label for="model">Model</label>
-    <input type="text" placeholder="Model Name" id="model" class="model">
-    <label for="memory">Memory</label>
-    <input type="number" placeholder="Memory Size" id="memory" class="memory">
-    <label for="price">Price</label>
-    <input type="number" placeholder="Price in Rs." id="price" class="price">
-    <button style="margin-top:20px" onclick="add()">Add</button>
-   </div>
-        <div class="bar">
-            <select name="" class="adv" id="select">
-                <option value="-1">-Select Field-</option>
-                <option value="Company">Company</option>
-                <option value="Model">Model</option>
-                <option value="Memory(GB)">Memory</option>
-                <option value="Price(Rs)">Price</option>
-            </select>
-            <div style="display: flex;
-            align-items: center;height: 100%;"><input class="adv" type="text" id="input">
-                <button onclick="searching()" class="adv">Search</button>
-            </div>
-            <div style="display: flex;align-items: center;width: 25%;
-            justify-content: space-evenly;">
-                <select name="" onchange="sorting()" class="adv" id="sort">
-                    <option value="-1">-Sort-</option>
-                    <option value="asc">Acsending</option>
-                    <option value="dec">Descending</option>
-                </select>
-                <select name="" onchange="sorting()" class="adv" id="sort_by">
-                    <option value="-1">-Sort By-</option>
+        <div class="form">
+            <label for="company">Company</label>
+            <input type="text" placeholder="Company Name" id="company" class="company">
+            <label for="model">Model</label>
+            <input type="text" placeholder="Model Name" id="model" class="model">
+            <label for="memory">Memory</label>
+            <input type="number" placeholder="Memory Size" id="memory" class="memory">
+            <label for="price">Price</label>
+            <input type="number" placeholder="Price in Rs." id="price" class="price">
+            <button style="margin-top:20px" onclick="add()">Add</button>
+        </div>
+        <div style="width: 50%;">
+            <div class="bar">
+                <select name="" class="adv" id="select">
+                    <option value="-1">-Select Field-</option>
                     <option value="Company">Company</option>
                     <option value="Model">Model</option>
                     <option value="Memory(GB)">Memory</option>
                     <option value="Price(Rs)">Price</option>
                 </select>
+                <div style="display: flex;
+            align-items: center;height: 100%;"><input class="adv" type="text" id="input">
+                    <button onclick="searching()" class="adv">Search</button>
+                </div>
+                <div style="display: flex;align-items: center;width: 25%;
+            justify-content: space-evenly;">
+                    <select name="" onchange="sorting()" class="adv" id="sort">
+                        <option value="-1">-Sort-</option>
+                        <option value="asc">Acsending</option>
+                        <option value="dec">Descending</option>
+                    </select>
+                    <select name="" onchange="sorting()" class="adv" id="sort_by">
+                        <option value="-1">-Sort By-</option>
+                        <option value="Company">Company</option>
+                        <option value="Model">Model</option>
+                        <option value="Memory(GB)">Memory</option>
+                        <option value="Price(Rs)">Price</option>
+                    </select>
 
+                </div>
             </div>
+            <table>
+                <thead id="thead">
+
+                </thead>
+                <tbody id="tbody">
+
+                </tbody>
+            </table>
         </div>
-        <table>
-            <thead id="thead">
+        <div class="innovice">
+            <div class="bar">
+                <select name="" class="adv" id="product">
 
-            </thead>
-            <tbody id="tbody">
+                </select>
+                <input type="number" class="adv" id="quantity">
+                <button onclick="addList()" class="adv">Add</button>
+                <button onclick="generateBill()" class="adv">Generate Bill</button>
+            </div>
+            <table>
 
-            </tbody>
-        </table>
+                <thead id="tthead"></thead>
+                <tbody id="ttbody">
+
+
+                </tbody>
+            </table>
+        </div>
     </div>
 
+    <script src="support.js"></script>
     <script>
-        let arr = [{ "Company": "Samsung", "Model": "Galaxy", "Memory(GB)": "64", "Price(Rs)": "15000" }, { "Company": "Nokia", "Model": "S703", "Memory(GB)": "128", "Price(Rs)": "22000" }, { "Company": "Xiaomi", "Model": "Note", "Memory(GB)": "32", "Price(Rs)": "12000" }, { "Company": "Motoroala", "Model": "G10", "Memory(GB)": "32", "Price(Rs)": "15000" }, { "Company": "Apple", "Model": "S12", "Memory(GB)": "64", "Price(Rs)": "25000" }];
+        
 
-        defaulted();
-        function defaulted() {
-            var head = "<tr>";
-            for (const headings in arr[0]) {
-                head += "<td>" + headings + "</td>";
-            }
-            head += "</tr>";
-            document.getElementById('thead').innerHTML = head;
-            // now for body
-            for (var i = 0; i <= arr.length; i++) {
-                addRow(arr[i]);
-            }
-        }
-        function addRow(arr) {
-
-            var body = "<tr>";
-            for (const [key, value] of Object.entries(arr)) {
-                body += "<td>" + value + "</td>";
-            }
-            body += "</tr>";
-            document.getElementById('tbody').innerHTML += body;
-        }
-        function searching() {
-            var txtvalue = document.getElementById("input").value;
-            var sltvalue = document.getElementById("select").value;
-
-            if (sltvalue == "-1") {
-                alert("Please select a column to search.");
-
-                document.getElementById('tbody').innerHTML = "";
-                defaulted();
-            }
-            else {
-
-                document.getElementById('tbody').innerHTML = "";
-                for (i = 0; i < arr.length; i++) {
-                    if (arr[i][sltvalue] == txtvalue) {
-
-                        addRow(arr[i]);
-
-                    }
-                }
-                if (document.getElementById('tbody').innerHTML == "") {
-                    var txt = '<tr><td colspan="4" style="text-align:center;color:red;font-weight:600"> No Record Found </td></tr>';
-                    document.getElementById('tbody').innerHTML = txt;
-                }
-
-            }
-
-
-        }
-        function sorting() {
-            var sort = document.getElementById('sort').value;
-            var sort_by = document.getElementById('sort_by').value;
-            if (sort_by == "-1")
-                sort_by = "Company";
-            if (sort == "asc") {
-                if (sort_by == "Company"||sort_by == "Model")
-                    arr = arr.sort(function (a, b) { let x = a[sort_by].toLowerCase(); let y = b[sort_by].toLowerCase(); if (x < y) { return -1; } if (x > y) { return 1; } return 0; });
-         
-                if(sort_by=="Memory(GB)"||sort_by=="Price(Rs)")
-                arr=arr.sort(function(a, b){return a[sort_by] - b[sort_by]});
-
-            }
-            if (sort == "dec") {
-                if (sort_by == "Company"||sort_by == "Model")
-                    arr = arr.sort(function (a, b) { let x = a[sort_by].toLowerCase(); let y = b[sort_by].toLowerCase(); if (x < y) { return 1; } if (x > y) { return -1; } return 0; });
-         
-                if(sort_by=="Memory(GB)"||sort_by=="Price(Rs)")
-                arr=arr.sort(function(a, b){return  b[sort_by]-a[sort_by]});
-            }
-
-            document.getElementById('tbody').innerHTML = "";
-            for (var i = 0; i <= arr.length; i++) {
-                addRow(arr[i]);
-            }
-
-           
-        }
-        function add()
-            {
-                var company=document.getElementById('company').value;
-
-                var model=document.getElementById('model').value;
-
-                var memory=document.getElementById('memory').value;
-
-                var price=document.getElementById('price').value;
-        // console.log(company+" "+ price);
-        var data={"Company":company,"Model":model,"Memory(GB)":memory,"Price(Rs)":price};
-                // arr.push();
-                arr.splice(2, 0, data);
-                document.getElementById('tbody').innerHTML = "";
-            for (var i = 0; i <= arr.length; i++) {
-                addRow(arr[i]);
-            }
-
-            }
     </script>
 </body>
 
