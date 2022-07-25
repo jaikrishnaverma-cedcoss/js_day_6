@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solution 1</title>
+</head>
+
+<body>
+    <div class="container">
+        
+        <table>
+            <thead id="thead">
+
+            </thead>
+            <tbody id="tbody">
+
+            </tbody>
+        </table>
+    </div>
+    <style>
+        .container{
+            display: flex;
+            justify-content: center;
+            margin-top: 10%;
+        }
+        table{
+            width: 35%;
+            height: 10%;
+        }
+        thead{
+            font-size: 22px;
+            font-weight: 900;
+        }
+        tbody{
+            font-size: 18px;
+        }
+        td{
+            border-bottom: 2px solid gray;
+   
+           height: 40px;
+        }
+    </style>
+    <script>
+        let arr = [{ "Company": "Samsung", "Model": "Galaxy", "Memory(GB)": "64", "Price(Rs)": "15000" }, { "company": "Nokia", "Model": "S703", "Memory(GB)": "128", "Price(Rs)": "22000" }, { "company": "Xiaomi", "Model": "Note", "Memory(GB)": "32", "Price(Rs)": "12000" }, { "company": "Motoroala", "Model": "G10", "Memory(GB)": "32", "Price(Rs)": "15000" }, { "company": "Apple", "Model": "S12", "Memory(GB)": "64", "Price(Rs)": "25000" }];
+        var head = "<tr>";
+        for (const headings in arr[0]) {
+            head += "<td>" + headings + "</td>";
+        }
+        head += "</tr>";
+        document.getElementById('thead').innerHTML = head;
+        addRow(arr);
+        function addRow(arr) {
+            for (var i = 0; i <= arr.length; i++) {
+                var body = "<tr>";
+                for (const [key, value] of Object.entries(arr[i])) {
+                    body += "<td>" + value + "</td>";
+                }
+                body += "</tr>";
+                document.getElementById('tbody').innerHTML += body;
+            }
+        }
+    </script>
+</body>
+
+</html>
