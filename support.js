@@ -122,7 +122,7 @@ var buyerList = [];
             var quant = document.getElementById("quantity").value;
             var tmp2 = { "Description": prod, "Quantity": quant, "Amount": (arr[pid]['Price(Rs)'] * quant) };
             buyerList.push(tmp2);
-            alert("item added in list.");
+            // alert("item added in list.");
 
         }
         function generateBill() {
