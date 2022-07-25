@@ -49,7 +49,7 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        margin-top: 10%;
+  
     }
 
     table,
@@ -72,11 +72,44 @@
 
         height: 40px;
     }
+    tbody tr:nth-child(odd)
+    {
+        background-color: rgb(191, 221, 209);
+    }
+    .form
+    {
+        display: flex;
+    flex-direction: column;
+    background-color: rgb(0, 99, 66);
+    padding: 20px;
+    border-radius: 0px 10px 0px 10px;
+    margin: 10px;
+    }
+    .form input,.form button{
+        border:2px solid rgb(18, 62, 47);
+        height: 25px;
+        padding: 2px;
+    }
+    label{
+        font-size: 18px;
+        font-weight: 800;
+        color:white
+    }
 </style>
 
 <body>
     <div class="container">
-
+   <div class="form">
+    <label for="company">Company</label>
+    <input type="text" placeholder="Company Name" id="company" class="company">
+    <label for="model">Model</label>
+    <input type="text" placeholder="Model Name" id="model" class="model">
+    <label for="memory">Memory</label>
+    <input type="number" placeholder="Memory Size" id="memory" class="memory">
+    <label for="price">Price</label>
+    <input type="number" placeholder="Price in Rs." id="price" class="price">
+    <button style="margin-top:20px" onclick="add()">Add</button>
+   </div>
         <div class="bar">
             <select name="" class="adv" id="select">
                 <option value="-1">-Select Field-</option>
@@ -196,7 +229,27 @@
                 addRow(arr[i]);
             }
 
+           
         }
+        function add()
+            {
+                var company=document.getElementById('company').value;
+
+                var model=document.getElementById('model').value;
+
+                var memory=document.getElementById('memory').value;
+
+                var price=document.getElementById('price').value;
+        // console.log(company+" "+ price);
+        var data={"Company":company,"Model":model,"Memory(GB)":memory,"Price(Rs)":price};
+                // arr.push();
+                arr.splice(2, 0, data);
+                document.getElementById('tbody').innerHTML = "";
+            for (var i = 0; i <= arr.length; i++) {
+                addRow(arr[i]);
+            }
+
+            }
     </script>
 </body>
 
