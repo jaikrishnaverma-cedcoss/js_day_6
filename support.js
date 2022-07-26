@@ -10,6 +10,8 @@ function defaulted() {
         tmp += '<option value="' + datat + '" id="' + j + '">' + datat + '</option>';
     }
     document.getElementById("product").innerHTML = tmp;
+    document.getElementById("prd").innerHTML = tmp;
+
     var head = "<tr>";
     for (const headings in arr[0]) {
         head += "<td>" + headings + "</td>";
@@ -20,7 +22,7 @@ function defaulted() {
     for (var i = 0; i < arr.length; i++) {
         addRow(arr[i]);
     }
-    document.getElementById('tbody').innerHTML += '<tr><td colspan="5"></td><td><button id="danger" onclick="delete_list()">Delete</button></td><tr>';
+
 }
 function addRow(arr, tbody = "tbody") {
 
@@ -88,7 +90,7 @@ function sorting() {
     }
 
     document.getElementById('tbody').innerHTML = "";
-    for (var i = 0; i <= arr.length; i++) {
+    for (var i = 0; i <arr.length; i++) {
         addRow(arr[i]);
     }
 
@@ -252,4 +254,15 @@ function delete_list() {
     document.getElementById('tbody').innerHTML = "";
     defaulted();
     hold.splice(0, hold.length);
+}
+function updateQuantity()
+{
+    var prod = document.getElementById("prd");
+    var qnt = document.getElementById("inputqnt").value;
+    var pid = prod.options[prod.selectedIndex].id;
+    // var dd=parseInt(arr[pid].Quantity);
+    arr[pid].Quantity=qnt;
+    prod = prod.value;
+    document.getElementById('tbody').innerHTML="";
+    defaulted();
 }

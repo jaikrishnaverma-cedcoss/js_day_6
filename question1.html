@@ -41,7 +41,8 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-
+       padding-left: 10px;
+       padding-right: 10px;
         width: 100%;
 
     }
@@ -105,26 +106,35 @@
         font-weight: 800;
         color: white
     }
-    button:active{
+
+    button:active {
         background-color: white;
     }
-    input[type='checkbox']
-    {
+
+    input[type='checkbox'] {
         height: 16px;
-        width:16px;
-     
+        width: 16px;
+
     }
-    #danger{
+
+    #danger {
         background-color: #ff5959;
         color: white;
         border-radius: 5px;
         width: 100%;
         font-size: 18px;
-        font-weight: 800;;
+        font-weight: 800;
+        ;
     }
-    #danger:active{
+
+    #danger:active {
         color: gray;
     }
+    .updater{
+        width: 30%;
+        margin:10px;
+     }
+
 </style>
 
 <body>
@@ -179,6 +189,12 @@
                 <tbody id="tbody">
 
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="5"></td>
+                        <td><button id="danger" onclick="delete_list()">Delete</button></td>
+                    <tr>
+                </tfoot>
             </table>
         </div>
         <div class="innovice">
@@ -191,7 +207,9 @@
                 <button onclick="addList()" class="adv">Add</button>
                 <button onclick="generateBill()" class="adv">Generate Bill</button>
             </div>
-            <div class="bar" style="background-color: rgb(187, 187, 239);"><h3  id="h3" style="padding-left: 20px;">Cart</h3></div>
+            <div class="bar" style="background-color: rgb(187, 187, 239);">
+                <h3 id="h3" style="padding-left: 20px;">Cart</h3>
+            </div>
             <table>
 
                 <thead id="tthead"></thead>
@@ -201,11 +219,22 @@
                 </tbody>
             </table>
         </div>
+      
     </div>
-
+     <div class="container">
+        <div class="updater">
+            <div class="bar">
+                <select name="" class="adv" id="prd"></select>
+                <div>
+                    <input class="adv" id="inputqnt" placeholder="Update Quantity" type="number">
+                <button class="adv" onclick="updateQuantity()">Update</button>
+                </div>
+            </div>
+        </div>
+     </div>
     <script src="support.js"></script>
     <script>
-        
+
 
     </script>
 </body>
