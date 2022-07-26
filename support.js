@@ -1,4 +1,4 @@
-let arr = [{ "Company": "Samsung", "Model": "Galaxy", "Memory(GB)": "64", "Price(Rs)": "15000","Quantity":"50" }, { "Company": "Nokia", "Model": "S703", "Memory(GB)": "128", "Price(Rs)": "22000","Quantity":"20" }, { "Company": "Xiaomi", "Model": "Note", "Memory(GB)": "32", "Price(Rs)": "12000","Quantity":"23" }, { "Company": "Motoroala", "Model": "G10", "Memory(GB)": "32", "Price(Rs)": "15000","Quantity":"20" }, { "Company": "Apple", "Model": "S12", "Memory(GB)": "64", "Price(Rs)": "25000","Quantity":"20"  }];
+let arr = [{ "Company": "Samsung", "Model": "Galaxy", "Memory(GB)": "64", "Price(Rs)": "15000","Quantity":"50","Rating":"5" }, { "Company": "Nokia", "Model": "S703", "Memory(GB)": "128", "Price(Rs)": "22000","Quantity":"20","Rating":"5" }, { "Company": "Xiaomi", "Model": "Note", "Memory(GB)": "32", "Price(Rs)": "12000","Quantity":"23","Rating":"5" }, { "Company": "Motoroala", "Model": "G10", "Memory(GB)": "32", "Price(Rs)": "15000","Quantity":"20","Rating":"5" }, { "Company": "Apple", "Model": "S12", "Memory(GB)": "64", "Price(Rs)": "25000","Quantity":"20","Rating":"5"  }];
 
 defaulted();
 function defaulted() {
@@ -11,6 +11,7 @@ function defaulted() {
     }
     document.getElementById("product").innerHTML = tmp;
     document.getElementById("prd").innerHTML = tmp;
+    document.getElementById("prd1").innerHTML = tmp;
 
     var head = "<tr>";
     for (const headings in arr[0]) {
@@ -262,7 +263,15 @@ function updateQuantity()
     var pid = prod.options[prod.selectedIndex].id;
     // var dd=parseInt(arr[pid].Quantity);
     arr[pid].Quantity=qnt;
-    prod = prod.value;
+    document.getElementById('tbody').innerHTML="";
+    defaulted();
+}
+function rating()
+{
+    var prod = document.getElementById("prd1");
+    var rate = document.getElementById("rate").value;
+    var pid = prod.options[prod.selectedIndex].id;
+    arr[pid].Rating=rate;
     document.getElementById('tbody').innerHTML="";
     defaulted();
 }

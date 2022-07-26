@@ -191,7 +191,7 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="5"></td>
+                        <td colspan="6"></td>
                         <td><button id="danger" onclick="delete_list()">Delete</button></td>
                     <tr>
                 </tfoot>
@@ -229,6 +229,20 @@
                     <input class="adv" id="inputqnt" placeholder="Update Quantity" type="number">
                 <button class="adv" onclick="updateQuantity()">Update</button>
                 </div>
+            </div>
+        </div>
+        <div class="updater" style="margin-left: 2%;">
+            <div class="bar" style="width:60%">
+               <div><select class="adv" name="" id="prd1"></select>
+                <select class="adv" name="" id="rate">
+                 <option value="0">Rate it with 0</option>
+                 <option value="1">Rate it with 1</option>
+                 <option value="2">Rate it with 2</option>
+                 <option value="3">Rate it with 3</option>
+                 <option value="4">Rate it with 4</option>
+                 <option value="5">Rate it with 5</option>
+                </select></div>
+               <button class="adv" onclick="rating()">Rate</button>
             </div>
         </div>
      </div>
