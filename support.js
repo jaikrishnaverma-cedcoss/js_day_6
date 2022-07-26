@@ -94,7 +94,8 @@ function sorting() {
     for (var i = 0; i <arr.length; i++) {
         addRow(arr[i]);
     }
-
+    document.getElementById('tbody').innerHTML="";
+defaulted();
 
 }
 function add() {
@@ -106,7 +107,7 @@ function add() {
 
     var price = document.getElementById('price').value;
     var quantity= document.getElementById('quantityin').value;
-    var data = { "Company": company, "Model": model, "Memory(GB)": memory, "Price(Rs)": price,"Quantity":quantity };
+    var data = { "Company": company, "Model": model, "Memory(GB)": memory, "Price(Rs)": price,"Quantity":quantity,"Rating":0 };
     arr.splice(2, 0, data);
     document.getElementById('tbody').innerHTML = "";
     defaulted();
