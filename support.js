@@ -275,3 +275,22 @@ function rating()
     document.getElementById('tbody').innerHTML="";
     defaulted();
 }
+
+function pricefilter()
+{
+    var min=document.getElementById('minprice').value;
+    var max=document.getElementById('maxprice').value;
+
+    if(min=="")
+    min=0;
+    if(max=="")
+    max=12000000;
+    min=parseInt(min);
+    max=parseInt(max);
+    var temp=arr;
+    arr = arr.filter((x)=> (x['Price(Rs)'] >= min&&x['Price(Rs)'] <= max));
+    document.getElementById('tbody').innerHTML="";
+    defaulted();
+    arr=temp;
+    // console.log(arr);
+}

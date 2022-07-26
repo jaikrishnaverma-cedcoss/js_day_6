@@ -134,7 +134,10 @@
         width: 30%;
         margin:10px;
      }
-
+ .Filter
+ {
+    max-width: 200px !important;
+ }
 </style>
 
 <body>
@@ -152,7 +155,7 @@
             <input type="number" placeholder="Stock Quantity" id="quantityin" class="quantityin">
             <button style="margin-top:20px" onclick="add()">Add</button>
         </div>
-        <div style="width: 50%;">
+        <div style="width: 80%;">
             <div class="bar">
                 <select name="" class="adv" id="select">
                     <option value="-1">-Select Field-</option>
@@ -164,6 +167,13 @@
                 <div style="display: flex;
             align-items: center;height: 100%;"><input class="adv" type="text" id="input">
                     <button onclick="searching()" class="adv">Search</button>
+                 
+                </div>
+                <div>
+                    <label for="Filter">Filter:</label>
+                    <input type="number" id="minprice" style="padding-left: 10px;" placeholder="Min Price" class="adv Filter">
+                    <input type="number" id="maxprice" style="padding-left: 10px;" placeholder="Max price" class="adv Filter">
+                    <button class="adv" onclick="pricefilter()">Filter</button>
                 </div>
                 <div style="display: flex;align-items: center;width: 25%;
             justify-content: space-evenly;">
@@ -197,31 +207,12 @@
                 </tfoot>
             </table>
         </div>
-        <div class="innovice">
-
-            <div class="bar">
-                <select name="" class="adv" id="product">
-
-                </select>
-                <input type="number" style="padding-left: 10px;" class="adv" placeholder=" Quantity" id="quantity">
-                <button onclick="addList()" class="adv">Add</button>
-                <button onclick="generateBill()" class="adv">Generate Bill</button>
-            </div>
-            <div class="bar" style="background-color: rgb(187, 187, 239);">
-                <h3 id="h3" style="padding-left: 20px;">Cart</h3>
-            </div>
-            <table>
-
-                <thead id="tthead"></thead>
-                <tbody id="ttbody">
-
-
-                </tbody>
-            </table>
-        </div>
+     
       
     </div>
-     <div class="container">
+     <div class="container" >
+     
+      
         <div class="updater">
             <div class="bar">
                 <select name="" class="adv" id="prd"></select>
@@ -243,6 +234,30 @@
                  <option value="5">Rate it with 5</option>
                 </select></div>
                <button class="adv" onclick="rating()">Rate</button>
+            </div>
+        </div>
+        <div class="updater">
+            <div class="innovice">
+
+                <div class="bar">
+                    <select name="" class="adv" id="product">
+    
+                    </select>
+                    <input type="number" style="padding-left: 10px;" class="adv" placeholder=" Quantity" id="quantity">
+                    <button onclick="addList()" class="adv">Add</button>
+                    <button onclick="generateBill()" class="adv">Generate Bill</button>
+                </div>
+                <div class="bar" style="background-color: rgb(187, 187, 239);">
+                    <h3 id="h3" style="padding-left: 20px;">Cart</h3>
+                </div>
+                <table>
+    
+                    <thead id="tthead"></thead>
+                    <tbody id="ttbody">
+    
+    
+                    </tbody>
+                </table>
             </div>
         </div>
      </div>
