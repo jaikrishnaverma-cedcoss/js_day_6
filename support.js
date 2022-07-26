@@ -14,24 +14,26 @@ function defaulted() {
     for (const headings in arr[0]) {
         head += "<td>" + headings + "</td>";
     }
-    head += "</tr>";
+    head += "<td>Action</td></tr>";
     document.getElementById('thead').innerHTML = head;
     // now for body
     for (var i = 0; i < arr.length; i++) {
         addRow(arr[i]);
     }
-
+    document.getElementById('tbody').innerHTML += '<tr><td colspan="4"></td><td><button id="danger" onclick="delete_list()">Delete</button></td><tr>';
 }
 function addRow(arr, tbody = "tbody") {
 
     var body = "<tr>";
-    for(var key in arr) {
+    for (var key in arr) {
         var value = arr[key];
         body += "<td>" + value + "</td>";
     }
     // for (const [key, value] of Object.entries(arr)) {
     //     body += "<td>" + value + "</td>";
     // }
+    if (tbody == "tbody")
+        body += "<td><input type='checkbox' onchange='checkbox(this)'><td>";
     body += "</tr>";
     document.getElementById(tbody).innerHTML += body;
 }
@@ -110,62 +112,106 @@ function add() {
 
 // Q5
 var buyerList = [];
-        function addList() {
-            var prod = document.getElementById("product");
-            var pid = prod.options[prod.selectedIndex].id;
-            prod = prod.value;
-            var tmp2;
-            var quant = document.getElementById("quantity").value;
-            // console.log("");
-            if(buyerList.length>0)
-            {
-                var flag=0;
-            for(var x=0;x<buyerList.length;x++)
-            {   
-                console.log(buyerList[x].Description==prod);
-                if(buyerList[x].Description==prod)
-                {
-                    
-                    buyerList[x].Quantity=parseInt(buyerList[x].Quantity);
-                    quant=parseInt(quant);
-                    buyerList[x].Quantity+=quant;
-                    buyerList[x].Amount=arr[pid]['Price(Rs)']*buyerList[x].Quantity;
-                    flag++;
-                }
-                // else if(x==buyerList.length-1 && flag==0)
-                //  tmp2 = { Description: prod, Quantity: quant, Amount: (arr[pid]['Price(Rs)'] * quant) };
-                //   buyerList.push(tmp2);
-             }
-             if(flag==0)
-             {tmp2 = { Description: prod, Quantity: quant, Amount: (arr[pid]['Price(Rs)'] * quant) };
-             buyerList.push(tmp2);
-            }
-             
-               
-        }else{
-             tmp2 = { Description: prod, Quantity: quant, Amount: (arr[pid]['Price(Rs)'] * quant) };
-             buyerList.push(tmp2);
-        }
-            
-           
-            // alert("item added in list.");
+function addList() {
+    var prod = document.getElementById("product");
+    var pid = prod.options[prod.selectedIndex].id;
+    prod = prod.value;
+    var tmp2;
+    var quant = document.getElementById("quantity").value;
+    // console.log("");
+    if (buyerList.length > 0) {
+        var flag = 0;
+        for (var x = 0; x < buyerList.length; x++) {
+            console.log(buyerList[x].Description == prod);
+            if (buyerList[x].Description == prod) {
 
-        }
-        function generateBill() {
-            var total = 0;
-            document.getElementById('ttbody').innerHTML = "";
-            var head = "<tr>";
-            for (const headings in buyerList[0]) {
-                head += "<td>" + headings + "</td>";
+                buyerList[x].Quantity = parseInt(buyerList[x].Quantity);
+                quant = parseInt(quant);
+                buyerList[x].Quantity += quant;
+                buyerList[x].Amount = arr[pid]['Price(Rs)'] * buyerList[x].Quantity;
+                flag++;
             }
-            head += "</tr>";
-            document.getElementById('tthead').innerHTML = head;
-            for (var i = 0; i < buyerList.length; i++) {
-                addRow(buyerList[i], "ttbody");
-                total += parseInt(buyerList[i].Amount);
-                // console.log(buyerList[i].Amount);
-                // console.log(buyerList);
-            }
-            var totalx= "<tr><td colspan='2'>Total</td><td>" + total + "</td></tr>";
-            document.getElementById('ttbody').innerHTML +=totalx;
+            // else if(x==buyerList.length-1 && flag==0)
+            //  tmp2 = { Description: prod, Quantity: quant, Amount: (arr[pid]['Price(Rs)'] * quant) };
+            //   buyerList.push(tmp2);
         }
+        if (flag == 0) {
+            tmp2 = { Description: prod, Quantity: quant, Amount: (arr[pid]['Price(Rs)'] * quant) };
+            buyerList.push(tmp2);
+        }
+
+
+    } else {
+        tmp2 = { Description: prod, Quantity: quant, Amount: (arr[pid]['Price(Rs)'] * quant) };
+        buyerList.push(tmp2);
+    }
+
+
+    // alert("item added in list.");
+
+}
+function generateBill() {
+    var total = 0;
+    document.getElementById('ttbody').innerHTML = "";
+    var head = "<tr>";
+    for (const headings in buyerList[0]) {
+        head += "<td>" + headings + "</td>";
+    }
+    head += "</tr>";
+    document.getElementById('tthead').innerHTML = head;
+    for (var i = 0; i < buyerList.length; i++) {
+        addRow(buyerList[i], "ttbody");
+        total += parseInt(buyerList[i].Amount);
+        // console.log(buyerList[i].Amount);
+        // console.log(buyerList);
+    }
+    var totalx = "<tr><td colspan='2'>Total</td><td>" + total + "</td></tr>";
+    document.getElementById('ttbody').innerHTML += totalx;
+}
+
+// Q6
+var hold = [];
+function checkbox(checkbx) {
+    var td = checkbx.closest('td')
+    var tr = td.closest('tr');
+
+
+    let nodes = Array.from(tr.closest('tbody').children);
+    let index = nodes.indexOf(tr);
+    if (hold.includes(index)) {
+        tr.style.color = "black";
+        tr.style.fontWeight = "400";
+        var indexExist = hold.indexOf(index);
+        hold.splice(indexExist, 1);
+
+    }
+    else {
+        tr.style.color = "red";
+        tr.style.fontWeight = "700";
+        hold.push(index);
+    }
+
+    //    arr.splice(index, 1);
+
+    console.log(hold);
+
+}
+
+function delete_list() {
+     if (confirm("Do you want to Delete all selected products?")) {
+        for (var index = 0; index < hold.length; index++) {
+            console.log(hold[index]);
+            arr[hold[index]] = null;
+             }
+        arr = arr.filter((x)=> (x != null));
+        // function isnull(x) {return;
+        // // }
+        // console.log(arr);
+
+    } else {
+        console.log("delete cancelled.")
+    }
+    document.getElementById('tbody').innerHTML = "";
+    defaulted();
+    hold.splice(0, hold.length);
+}
