@@ -1,4 +1,4 @@
-let arr = [{ "Company": "Samsung", "Model": "Galaxy", "Memory(GB)": "64", "Price(Rs)": "15000" }, { "Company": "Nokia", "Model": "S703", "Memory(GB)": "128", "Price(Rs)": "22000" }, { "Company": "Xiaomi", "Model": "Note", "Memory(GB)": "32", "Price(Rs)": "12000" }, { "Company": "Motoroala", "Model": "G10", "Memory(GB)": "32", "Price(Rs)": "15000" }, { "Company": "Apple", "Model": "S12", "Memory(GB)": "64", "Price(Rs)": "25000" }];
+let arr = [{ "Company": "Samsung", "Model": "Galaxy", "Memory(GB)": "64", "Price(Rs)": "15000","Quantity":"50" }, { "Company": "Nokia", "Model": "S703", "Memory(GB)": "128", "Price(Rs)": "22000","Quantity":"20" }, { "Company": "Xiaomi", "Model": "Note", "Memory(GB)": "32", "Price(Rs)": "12000","Quantity":"23" }, { "Company": "Motoroala", "Model": "G10", "Memory(GB)": "32", "Price(Rs)": "15000","Quantity":"20" }, { "Company": "Apple", "Model": "S12", "Memory(GB)": "64", "Price(Rs)": "25000","Quantity":"20"  }];
 
 defaulted();
 function defaulted() {
@@ -20,7 +20,7 @@ function defaulted() {
     for (var i = 0; i < arr.length; i++) {
         addRow(arr[i]);
     }
-    document.getElementById('tbody').innerHTML += '<tr><td colspan="4"></td><td><button id="danger" onclick="delete_list()">Delete</button></td><tr>';
+    document.getElementById('tbody').innerHTML += '<tr><td colspan="5"></td><td><button id="danger" onclick="delete_list()">Delete</button></td><tr>';
 }
 function addRow(arr, tbody = "tbody") {
 
@@ -102,27 +102,50 @@ function add() {
     var memory = document.getElementById('memory').value;
 
     var price = document.getElementById('price').value;
-    var data = { "Company": company, "Model": model, "Memory(GB)": memory, "Price(Rs)": price };
+    var quantity= document.getElementById('quantityin').value;
+    var data = { "Company": company, "Model": model, "Memory(GB)": memory, "Price(Rs)": price,"Quantity":quantity };
     arr.splice(2, 0, data);
     document.getElementById('tbody').innerHTML = "";
     defaulted();
-    document.getElementById('company').value = ""; document.getElementById('model').value = ""; document.getElementById('memory').value = ""; document.getElementById('price').value = "";
+    document.getElementById('company').value = ""; document.getElementById('model').value = ""; document.getElementById('memory').value = ""; document.getElementById('price').value = "";document.getElementById('quantityin').value = "";
 
 }
 
 // Q5
 var buyerList = [];
+
+
 function addList() {
     var prod = document.getElementById("product");
     var pid = prod.options[prod.selectedIndex].id;
     prod = prod.value;
     var tmp2;
     var quant = document.getElementById("quantity").value;
+    if(quant=="")
+    {
+        return alert("enter valid quantity.");
+    }
+    else
+    {
+        arr[pid]['Quantity']=parseInt(arr[pid]['Quantity']);
+        quant=parseInt(quant);
+        arr[pid]['Quantity']-=quant;
+       console.log(arr[pid]['Quantity']+" "+quant);
+        if( arr[pid]['Quantity']<0)
+        {
+            arr[pid]['Quantity']=arr[pid]['Quantity']+quant;
+            // console.log(arr[pid]['Quantity']);
+            return alert("Sorry "+quant+" Quantitiy Not Availabel for "+arr[pid]['Model']+" product");
+        }
+        if(quant<0)
+           return alert("Quantity Cannot be negative.");
+      
+    }
     // console.log("");
     if (buyerList.length > 0) {
         var flag = 0;
         for (var x = 0; x < buyerList.length; x++) {
-            console.log(buyerList[x].Description == prod);
+            // console.log(buyerList[x].Description == prod);
             if (buyerList[x].Description == prod) {
 
                 buyerList[x].Quantity = parseInt(buyerList[x].Quantity);
@@ -147,7 +170,21 @@ function addList() {
     }
 
 
-    // alert("item added in list.");
+    document.getElementById('ttbody').innerHTML = "";
+    var head = "<tr>";
+    for (const headings in buyerList[0]) {
+        head += "<td>" + headings + "</td>";
+    }
+    head += "</tr>";
+    document.getElementById('tthead').innerHTML = head;
+    for (var i = 0; i < buyerList.length; i++) {
+        addRow(buyerList[i], "ttbody");
+        // console.log(buyerList[i].Amount);
+        // console.log(buyerList);
+    }
+document.getElementById('h3').innerText="Cart";
+document.getElementById('tbody').innerHTML = "";
+defaulted();
 
 }
 function generateBill() {
@@ -167,6 +204,7 @@ function generateBill() {
     }
     var totalx = "<tr><td colspan='2'>Total</td><td>" + total + "</td></tr>";
     document.getElementById('ttbody').innerHTML += totalx;
+    document.getElementById('h3').innerText="Bill";
 }
 
 // Q6
